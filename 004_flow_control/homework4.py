@@ -3,3 +3,13 @@
 # Если число делится на 5 без остатка, вывести число и BUZZ
 # Если число делится на 3 и на 5 без остатка, вывести число и FIZZBUZZ
 # Каждое число выводится не больше одного раза
+
+for num in range(1, 101):
+    div3 = num % 3
+    div5 = num % 5
+    if num % 15 == 0:
+        print(num, 'FIZZBUZZ')
+    elif div5 == 0:
+        print(num, 'BUZZ')
+    elif div3 == 0:
+        print(num, 'FIZZ')

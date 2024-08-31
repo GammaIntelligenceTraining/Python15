@@ -94,13 +94,57 @@ courses = ['History', 'Math', 'Literature', 'Physics', 'Programming', 'english',
 # print([1, 2, 3] + [3, 2, 1])
 # print((1, 2, 3) + (3, 2, 1))
 
-x = set()  # set()
-print(type(x))
+# x = set()  # set()
+# print(type(x))
+#
+# courses = {'History', 'Math', 'Math', 'Math', 'Math', 'Literature', 'Physics', 'Programming', 'english', '123124'}
+# courses2 = {'Math', 'Economics', 'History', 'Spanish'}
+# print(courses.difference(courses2))
+# print(courses2.difference(courses))
+#
+# print(courses.intersection(courses2))
 
-courses = {'History', 'Math', 'Math', 'Math', 'Math', 'Literature', 'Physics', 'Programming', 'english', '123124'}
-courses2 = {'Math', 'Economics', 'History', 'Spanish'}
-print(courses.difference(courses2))
-print(courses2.difference(courses))
+# empty = {}
+# empty = dict()
+# print(type(empty))
 
-print(courses.intersection(courses2))
+# x = 5
+# sample = {
+#     'name': 'Jack',
+#     'courses': ['Art', 'English', 'Programming'],
+#     1: 'int key',
+#     0.2: 'float key',
+#     x: 'variable key',
+#     'dictinary': {'Name': 'Bob', 'surname': 'Smith'},
+# }
+# # print(sample['dictinary']['surname'])
+# # print(sample.get('dictinary').get('Name', {}))
+#
+# sample['name'] = 'Sarah'
+# sample['phone'] = '555-555-5555'
+# print(sample)
+#
+# sample.update({'name': 'Bob', 'address': 'Tallinn'})
+# print(sample)
+#
+# del sample['name']
+# print(sample)
+#
+# courses = sample.pop('courses')
+# print(courses)
+# print(sample)
 
+# sample2 = {'name': 'Jack', 'surname': 'Smith', 'age': 40}
+# for x in sample2:
+#     print(sample2[x])
+#
+# print(sample2.keys())
+# print(sample2.values())
+# print(sample2.items())
+#
+# key = 5
+# for key, value in sample2.items():
+#     print(key, value)
+#
+# print(key)
+# print(value)
