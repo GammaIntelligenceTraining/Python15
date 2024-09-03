@@ -50,14 +50,63 @@
 #
 # sample(2)
 
-def triangle_area(a, b, c):
-    p = (a + b + c) / 2
-    area = (p * (p - a) * (p - b) * (p - c)) ** 0.5
-    return area
+# def triangle_area(a, b, c):
+#     p = (a + b + c) / 2
+#     area = (p * (p - a) * (p - b) * (p - c)) ** 0.5
+#     return area
+#
+#
+# def print_result():
+#     print(f'The area of triangle is {triangle_area(3, 4, 5)} cm2')
+#
+#
+# print_result()
+
+# def sum_two_or_three(a, b, c=1):
+#     return a * b / c
+#
+#
+# # print(sum_two_or_three(2, 3))
+# print(sum_two_or_three(2, 3, 4))
+#
+#
+# print('Hello', 'world', sep='***', end='')
+# print('Good bye!')
+
+# def sum_all_of_them(*args):
+#     return sum(args)
+#
+#
+# print(sum_all_of_them(123, 121, 5232, 123, 985))
 
 
-def print_result():
-    print(f'The area of triangle is {triangle_area(3, 4, 5)} cm2')
+# def concat_all(*args):
+#     # res = ''
+#     # for word in args:
+#     #     res += word
+#     # return res
+#     res = []
+#     for word in args:
+#         res.append({
+#             'word': word,
+#             'length': len(word),
+#         })
+#     return res
 
+# print(concat_all('Hello', 'people', 'of', 'planet', 'Earth'))
 
-print_result()
+# def tester(a, b, c=0, *args, **kwargs):
+#     print(a, b)
+#     print(c)
+#     print(args)
+#     print(kwargs)
+#
+#
+# tester(2, 3, 1, 't', 'h', True, None, [1, 2, 3], {'name': 'Jack'}, name='Jack', surname='Smith', age=20)
+
+# import my_functions as mf
+# print(mf.triple(123))
+
+# from my_functions import double as dbl, triple as trpl
+#
+# print(trpl(123))
