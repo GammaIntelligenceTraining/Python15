@@ -1,6 +1,6 @@
+x = 9
 
-if 5 in range(0, 100):
-    print('OK')
+print(x - int(x / 5))
+print(x % 5)
 
-if '005' < '018' or '005' < '0':
-    print('OKOK')
+print((x / 5 - 1) * 5)
