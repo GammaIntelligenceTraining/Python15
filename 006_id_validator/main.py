@@ -49,6 +49,34 @@ def get_date_of_birth():
         print('Something wrong with ID you entered.')
 
 
+def get_birth_region():
+    chk = isikukood[7:10]
+    if int(chk) in range(1, 11):
+        print('Kuressaare haigla')
+    elif '011' <= chk <= '019':
+        print('Tartu Ülikooli Naistekliinik')
+    elif '021' <= chk and '150' >= chk:
+        print('Ida-Tallinna keskhaigla, Pelgulinna sünnitusmaja (Tallinn)')
+
+
+def validate_id():
+    chk1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 1]
+    chk2 = [3, 4, 5, 6, 7, 8, 9, 1, 2, 3]
+    result = 0
+    for num in range(10):
+        result += chk1[num] * int(isikukood[num])
+    if result % 11 == int(isikukood[-1]):
+        print('ID is valid')
+    elif result % 11 == 10:
+        result = 0
+        for num in range(10):
+            result += chk2[num] * int(isikukood[num])
+        if result % 11 == int(isikukood[-1]):
+            print('ID is valid')
+        else:
+            print('ID is not valid')
+    else:
+        print('ID is not valid')
 
 def menu():
     ask_for_id()
@@ -66,9 +94,9 @@ def menu():
         elif user_choice == '2':
             get_date_of_birth()
         elif user_choice == '3':
-            print(3, isikukood)
+            get_birth_region()
         elif user_choice == '4':
-            print(4, isikukood)
+            validate_id()
         elif user_choice == '5':
             ask_for_id()
         elif user_choice == '0':
