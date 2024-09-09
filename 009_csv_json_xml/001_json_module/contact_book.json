@@ -1,0 +1,10 @@
+{
+    "Jack": {
+        "phone": "555-555-5555",
+        "email": "jack@example.com"
+    },
+    "Sarah": {
+        "phone": "444-444-4444",
+        "email": "sarah@company.com"
+    }
+}
