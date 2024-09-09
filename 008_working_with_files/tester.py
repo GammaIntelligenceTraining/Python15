@@ -19,7 +19,11 @@
 # with open(r'text_files\test_copy.txt', 'w', encoding='utf8') as file2:
 #     file2.write(data)
 
-with open('text_files/python.jpg', 'rb') as file:
-    with open('text_files/python_copy.jpg', 'wb') as file2:
-        data = file.read(20096)
-        file2.write(data)
+# with open('text_files/python.jpg', 'rb') as file:
+#     with open('text_files/python_copy.jpg', 'wb') as file2:
+#         data = file.read(20096)
+#         file2.write(data)
+path = r'text_files/trimushketera.txt'
+with open(path, 'r', encoding='utf8') as file:
+    data = file.read()
+    print(data)
