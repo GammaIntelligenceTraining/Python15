@@ -12,3 +12,4 @@ y = lambda a, b: a * b
 d = lambda: 'Hello world!'
 
 print(y(10, 20))
+print('Test')
