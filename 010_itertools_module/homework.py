@@ -13,6 +13,11 @@ strings = [
     "rotor",
     "javascript"
 ]
+def palindrome(string_list):
+    result = filter(lambda w: w == w[::-1], string_list)
+    return list(result)
+
+print(palindrome(strings))
 
 
 # Напишите программу которая добавит в новый массив только совершеннолетних
@@ -43,6 +48,8 @@ people = [
     }
 ]
 
+result = list(filter(lambda p: p['age'] > 17, people))
+print(result)
 
 # Напишите программу которая выберет из данного массива книги изданые в 2023
 # В новый массив добавит объекты в которых ключом будет имя автора, а значением название книги
@@ -74,8 +81,12 @@ books = [
     }
 ]
 
+# filtered = list(filter(lambda b: b['release'] == 2023, books))
+# result = list(map(lambda b: {b['author']: b['title']}, filtered))
+result = list(map(lambda b: {b['author']: b['title']}, filter(lambda b: b['release'] == 2023, books)))
+print(result)
 
-# ЗАДАНИЯ НИЖУ
+# ЗАДАНИЯ НИЖЕ
 cars = [
     {
         "make": "Toyota",
@@ -250,11 +261,16 @@ cars = [
 # Попробуйте оформить каждое задание в виде функции
 # 1. Отфильтруйте бензиновые машины и добавьте в новый список марку и модель
 # пример: ['BMW 520i', 'Audi A5', 'VW Golf']
+petrol = filter(lambda c: c['specifications']['fuelType'] == 'Gasoline', cars)
+result = list(map(lambda c: f'{c["make"]} {c["model"]}', petrol))
+print(result)
 
 
 # 2. Отфильтруйте машины которые стоят больше 30000 и добавьте в новй список словари
 # пример словарей: {make: 'BMW', model: '528i', owner_name: 'Jack Smith'}
-
+expensive = filter(lambda c: c['price'] > 30000, cars)
+result = list(map(lambda c: {'make': c['make'], 'model': c['model'], 'owner_name': c['owner']['name']}, expensive))
+print(result)
 
 # 3. Используйте метод map() чтобы создать новый массив из владельцев
 # Пример:
@@ -264,3 +280,6 @@ cars = [
 #     "state": "IL",
 #     "zip": "62704",
 # }},]
+
+result = list(map(lambda p: {p['owner']['name']: p['owner']['address']}, cars))
+print(result)
