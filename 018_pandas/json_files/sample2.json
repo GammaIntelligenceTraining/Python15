@@ -19,7 +19,8 @@
       "phone": null,
       "emails": "stevencooke@example.com",
       "has_licence": true,
-      "salary": 2500
+      "salary": 2500,
+      "unique": true
     }
   ]
 }
