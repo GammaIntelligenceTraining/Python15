@@ -75,7 +75,9 @@ pd.set_option('display.max_columns', 9)
 # print(df.loc[df['Country or region'].str.contains('on|an')])
 # print(df.loc[df['Country or region'].str.endswith('land')])
 
-print(df.nlargest(10, 'GDP per capita'))
-print(df.nsmallest(10, 'GDP per capita').reset_index(drop=True))
+# print(df.nlargest(10, 'GDP per capita'))
+# print(df.nsmallest(10, 'GDP per capita').reset_index(drop=True))
+#
+# print(pd.concat([df.nlargest(10, 'GDP per capita'), df.nsmallest(10, 'GDP per capita').reset_index(drop=True)]))
 
-print(pd.concat([df.nlargest(10, 'GDP per capita'), df.nsmallest(10, 'GDP per capita').reset_index(drop=True)]))
+df.to_excel('output.xlsx', index=False)
