@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}
+    Flask blog create post
+{% endblock %}
+{% block content %}
+  <form class="py-5" method="post">
+    <div class="mb-3">
+      <label for="post-title" class="form-label">Post title</label>
+      <input type="text" class="form-control" id="post-title" name="post-title" placeholder="Post title">
+    </div>
+    <div class="mb-3">
+      <label for="post-content" class="form-label">Post content</label>
+      <textarea class="form-control" id="post-content" name="post-content" rows="3"></textarea>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Send post">
+  </form>
+{% endblock %}

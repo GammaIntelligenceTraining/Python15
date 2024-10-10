@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash
 from flask_sqlalchemy import SQLAlchemy
-from datetime import timedelta
+from sqlalchemy import desc
+from datetime import timedelta, datetime
 import hashlib
 
 app = Flask(__name__)
@@ -25,10 +26,27 @@ class User(db.Model):
         self.email = email
 
 
+class Post(db.Model):
+    # __tablename__ = 'user_post'
+    _id = db.Column('post_id', db.Integer, primary_key=True)
+    title = db.Column('title', db.String(100))
+    content = db.Column('content', db.String(1000))
+    date_added = db.Column('date_added', db.DateTime())
+    owner = db.Column('owner', db.String(20))
+
+    def __init__(self, title, content, owner):
+        self.title = title
+        self.content = content
+        self.owner = owner
+        self.date_added = datetime.now()
+
+
 @app.route('/')
 def home():
+    posts = Post.query.order_by(desc('date_added')).all()
     return render_template(
         'index.html',
+        posts=posts
     )
 
 
@@ -76,6 +94,23 @@ def user_profile():
         return render_template('user.html', login=session['login'], email=session['email'])
     else:
         flash('Please log in.', 'info')
+        return redirect(url_for('login'))
+
+
+@app.route('/post/', methods=['GET', 'POST'])
+def post():
+    if 'login' in session:
+        if request.method == 'POST':
+            title = request.form['post-title']
+            content = request.form['post-content']
+            new_post = Post(title, content, session['login'])
+            db.session.add(new_post)
+            db.session.commit()
+            flash('Post saved', 'success')
+            return redirect(url_for('home'))
+        else:
+            return render_template('post.html')
+    else:
         return redirect(url_for('login'))
 
 
