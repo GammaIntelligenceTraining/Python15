@@ -14,7 +14,7 @@
             {{ post.owner }} posted: {{ post.date_added.strftime('%d.%m.%Y %H:%M') }}
           </h6>
           {% if post.owner == session['login'] %}
-            <a href="/delete_post/{{ post._id }}" >delete</a>
+            <a href="/delete_post/{{ post._id }}" class="btn btn-sm btn-danger">delete</a>
           {% endif %}
         </div>
       </div>

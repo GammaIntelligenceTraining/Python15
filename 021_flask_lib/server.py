@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import desc
 from datetime import timedelta, datetime
 import hashlib
+from utils.helpers import allowed_file, unique_filename
+import os
 
 app = Flask(__name__)
 app.secret_key = 'hello'
@@ -10,6 +12,9 @@ app.permanent_session_lifetime = timedelta(minutes=10)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:12345678@localhost/flask_python15'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+app.config['UPLOAD_FOLDER'] = 'static/upload'
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 db = SQLAlchemy(app)
 
@@ -19,11 +24,13 @@ class User(db.Model):
     login = db.Column('login', db.String(20), unique=True)
     password = db.Column('password', db.String(32))
     email = db.Column('email', db.String(100))
+    avatar = db.Column('avatar', db.String(100))
 
-    def __init__(self, login, password, email):
+    def __init__(self, login, password, email='', avatar=''):
         self.login = login
         self.password = password
         self.email = email
+        self.avatar = avatar
 
 
 class Post(db.Model):
@@ -84,6 +91,7 @@ def login():
 @app.route('/user_profile/', methods=['GET', 'POST'])
 def user_profile():
     if 'login' in session:
+        the_user = User.query.filter_by(login=session['login']).first()
         if request.method == 'POST':
             user_email = request.form['user-email']
             user_in_db = User.query.filter_by(login=session['login']).first()
@@ -91,7 +99,7 @@ def user_profile():
             db.session.commit()
             session['email'] = user_email
             flash('Email was saved.', 'success')
-        return render_template('user.html', login=session['login'], email=session['email'])
+        return render_template('user.html', login=session['login'], email=session['email'], avatar=the_user.avatar)
     else:
         flash('Please log in.', 'info')
         return redirect(url_for('login'))
@@ -110,6 +118,33 @@ def post():
             return redirect(url_for('home'))
         else:
             return render_template('post.html')
+    else:
+        return redirect(url_for('login'))
+
+
+@app.route('/upload_avatar/', methods=['GET', 'POST'])
+def upload_avatar():
+    if 'login' in session:
+        if request.method == 'POST':
+            if 'avatar' not in request.files:
+                flash('No file selected', 'danger')
+                return redirect(request.url)
+
+            file = request.files['avatar']
+
+            if not file.filename:
+                flash('No file selected', 'danger')
+                return redirect(request.url)
+
+            if file and allowed_file(file.filename):
+                filename = unique_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                the_user = User.query.filter_by(login=session['login']).first()
+                the_user.avatar = filename
+                db.session.commit()
+                flash('Avatar uploaded successfully', 'success')
+                return redirect(url_for('user_profile'))
+        return render_template('upload_avatar.html')
     else:
         return redirect(url_for('login'))
 
@@ -134,6 +169,16 @@ def delete_user():
     session.pop('login', None)
     session.pop('email', None)
     flash('User was deleted', 'success')
+    return redirect(url_for('home'))
+
+
+@app.route('/delete_post/<post_id>')
+def delete_post(post_id):
+    post = Post.query.filter_by(_id=post_id).first()
+    if 'login' in session and post.owner == session['login']:
+        Post.query.filter_by(_id=post_id).delete()
+        db.session.commit()
+        flash('Post was deleted', 'success')
     return redirect(url_for('home'))
 
 

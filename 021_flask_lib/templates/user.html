@@ -4,8 +4,19 @@
 {% endblock %}
 {% block content %}
   <div class="container mt-5">
-    <h1>Hello {{ login }}.</h1>
     <form class="py-5" method="post">
+      <div class="row">
+        <div class="col-2">
+          {% if avatar %}
+            <img src="{{ url_for('static', filename='upload/' + avatar) }}" alt="avatar" width="150px" height="150px">
+          {% else %}
+            <img src="{{ url_for('static', filename='noavatar.png') }}" alt="avatar" width="150px" height="150px">
+          {% endif %}
+        </div>
+        <div class="col-10">
+          <h1>Hello <span class="text-info">{{ login }}</span>.</h1>
+        </div>
+      </div>
       <div class="row mb-3">
         <label for="user-email" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-10">
@@ -14,6 +25,7 @@
       </div>
       <button type="submit" class="btn btn-primary">Save</button>
       <a href="/delete_user" class="btn btn-danger">Delete user</a>
+      <a href="/upload_avatar" class="btn btn-primary">Upload avatar</a>
     </form>
   </div>
 {% endblock %}
